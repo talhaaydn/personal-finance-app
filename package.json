@@ -1,5 +1,5 @@
 {
-  "name": "PersonalFinanceProject",
+  "name": "personalfinanceproject",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,16 +7,28 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "svgr": "svgr ./src/icons -d ./src/components/icons --native --svg-props 'className='"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/bottom-tabs": "^5.11.2",
+    "@react-navigation/native": "^5.8.10",
+    "@react-navigation/stack": "^5.12.8",
     "react": "16.13.1",
-    "react-native": "0.63.4"
+    "react-native": "0.63.4",
+    "react-native-gesture-handler": "^1.9.0",
+    "react-native-reanimated": "^1.13.2",
+    "react-native-safe-area-context": "^3.1.9",
+    "react-native-screens": "^2.16.1",
+    "react-native-svg": "^12.1.0",
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.12.9",
     "@babel/runtime": "7.12.5",
     "@react-native-community/eslint-config": "1.1.0",
+    "@svgr/cli": "^5.5.0",
     "babel-jest": "25.5.1",
     "eslint": "6.8.0",
     "jest": "25.5.4",

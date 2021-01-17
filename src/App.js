@@ -4,6 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+import TabBar from './components/tab-bar';
+
 import DashboardScreen from './views/Dashboard';
 import DashboardDetailScreen from './views/DashboardDetail';
 import IncomeExpenseScreen from './views/IncomeExpense';
@@ -16,7 +18,11 @@ const DashboardStack = createStackNavigator();
 function DashboardStackScreen() {
   return (
     <DashboardStack.Navigator>
-      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={{headerShown: false}}
+      />
       <DashboardStack.Screen name="Details" component={DashboardDetailScreen} />
     </DashboardStack.Navigator>
   );
@@ -30,6 +36,7 @@ function MoneySavingStackScreen() {
       <MoneySavingStack.Screen
         name="MoneySaving"
         component={MoneySavingScreen}
+        options={{headerShown: false}}
       />
       <MoneySavingStack.Screen
         name="NewMoneySaving"
@@ -48,7 +55,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer initialRouteName="Anasayfa">
-      <Tab.Navigator>
+      <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
         <Tab.Screen name="Anasayfa" component={DashboardStackScreen} />
         <Tab.Screen name="Gelir/Gider Ekle" component={IncomeExpenseScreen} />
         <Tab.Screen name="Birikim Takibi" component={MoneySavingStackScreen} />

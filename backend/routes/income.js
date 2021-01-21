@@ -5,8 +5,20 @@ const IncomeType = require('../models/IncomeType');
 const User = require('../models/User');
 
 router.get('/income', (req, res) => {
-  Income.find({})
-    .then((result) => res.json(result))
+  Income.aggregate([
+    {
+      $group: {
+        _id: {
+          year: {$year: '$created_at'},
+          month: {$month: '$created_at'},
+          day: {$dayOfMonth: '$created_at'},
+        },
+
+        result: {$push: '$$ROOT'},
+      },
+    },
+  ])
+    .then((result) => res.json(result.reverse()))
     .catch((error) => res.status(500).send(error));
 });
 
@@ -19,8 +31,8 @@ router.get('/income/:id', (req, res) => {
 router.post('/income', async (req, res) => {
   // Check income type is exist in the database
   const incomeTypeIsExist = await IncomeType.findById(req.body.income_type_id);
-  if (incomeTypeIsExist !== null)
-    return res.status(400).send('Income type is not exist');
+  if (typeof incomeTypeIsExist !== 'object')
+    return res.json({status: 400, message: 'Income type is not exist'});
 
   // Check user is exist in the database
   const userIsExist = await User.findById(req.body.user_id);
@@ -28,6 +40,7 @@ router.post('/income', async (req, res) => {
 
   const income = new Income(req.body);
   income.created_at = Date.now();
+  income.income_type_name = incomeTypeIsExist.title;
 
   income
     .save()

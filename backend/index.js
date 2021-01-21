@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 var app = express();
 
@@ -11,6 +12,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // Dotenv Integration
 dotenv.config();
+
+// Cors
+app.use(cors({origin: true, credentials: true}));
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

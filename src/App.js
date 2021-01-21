@@ -58,7 +58,7 @@ export default function App() {
       <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
         <Tab.Screen name="Anasayfa" component={DashboardStackScreen} />
         <Tab.Screen name="Gelir/Gider Ekle" component={IncomeExpenseScreen} />
-        <Tab.Screen name="Birikim Takibi" component={MoneySavingStackScreen} />
+        {/* <Tab.Screen name="Birikim Takibi" component={MoneySavingStackScreen} /> */}
       </Tab.Navigator>
     </NavigationContainer>
   );

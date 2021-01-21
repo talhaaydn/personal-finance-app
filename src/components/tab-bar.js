@@ -35,7 +35,10 @@ function TabBar({state, descriptors, navigation}) {
         };
 
         return (
-          <TouchableOpacity onPress={onPress} style={styles.TabBarItem}>
+          <TouchableOpacity
+            onPress={onPress}
+            style={styles.TabBarItem}
+            key={label === 'Anasayfa' ? 'Anasayfa' : 'Gelir/Gider Ekle'}>
             {label === 'Anasayfa' && (
               <Home
                 stroke={isFocused ? '#404CB3' : '#94AFB6'}
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
   TabBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     backgroundColor: '#fff',
     height: 65,
     paddingHorizontal: 15,

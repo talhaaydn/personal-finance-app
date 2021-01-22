@@ -51,6 +51,14 @@ app.use('/api', incomeType);
 app.use('/api', expense);
 app.use('/api', expenseType);
 
-app.listen(8080, () => {
-  console.log(`Server listening on http://localhost:8080`);
+app.get('/', (req, res) => {
+  res.send('Backend çalışıyor.');
+});
+
+app.listen(process.env.PORT || 8080, function () {
+  console.log(
+    'Express server listening on port %d in %s mode',
+    this.address().port,
+    app.settings.env,
+  );
 });

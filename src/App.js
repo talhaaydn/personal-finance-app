@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Button, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -7,46 +6,18 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TabBar from './components/tab-bar';
 
 import DashboardScreen from './views/Dashboard';
-import DashboardDetailScreen from './views/DashboardDetail';
 import IncomeExpenseScreen from './views/IncomeExpense';
-import MoneySavingScreen from './views/MoneySaving';
-import NewMoneySavingScreen from './views/NewMoneySaving';
-import MoneySavingDetailScreen from './views/MoneySavingDetail';
+import NewsScreen from './views/News';
+import NewsWebViewScreen from './views/NewsWebView';
 
-const DashboardStack = createStackNavigator();
+const NewsStack = createStackNavigator();
 
-function DashboardStackScreen() {
+function NewsStackScreen() {
   return (
-    <DashboardStack.Navigator>
-      <DashboardStack.Screen
-        name="Dashboard"
-        component={DashboardScreen}
-        options={{headerShown: false}}
-      />
-      <DashboardStack.Screen name="Details" component={DashboardDetailScreen} />
-    </DashboardStack.Navigator>
-  );
-}
-
-const MoneySavingStack = createStackNavigator();
-
-function MoneySavingStackScreen() {
-  return (
-    <MoneySavingStack.Navigator>
-      <MoneySavingStack.Screen
-        name="MoneySaving"
-        component={MoneySavingScreen}
-        options={{headerShown: false}}
-      />
-      <MoneySavingStack.Screen
-        name="NewMoneySaving"
-        component={NewMoneySavingScreen}
-      />
-      <MoneySavingStack.Screen
-        name="MoneySavingDetailScreen"
-        component={MoneySavingDetailScreen}
-      />
-    </MoneySavingStack.Navigator>
+    <NewsStack.Navigator initialRouteName="Haberler">
+      <NewsStack.Screen name="Haberler" component={NewsScreen} />
+      <NewsStack.Screen name="Haber Detayı" component={NewsWebViewScreen} />
+    </NewsStack.Navigator>
   );
 }
 
@@ -56,9 +27,9 @@ export default function App() {
   return (
     <NavigationContainer initialRouteName="Anasayfa">
       <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
-        <Tab.Screen name="Anasayfa" component={DashboardStackScreen} />
+        <Tab.Screen name="Anasayfa" component={DashboardScreen} />
         <Tab.Screen name="Gelir/Gider Ekle" component={IncomeExpenseScreen} />
-        {/* <Tab.Screen name="Birikim Takibi" component={MoneySavingStackScreen} /> */}
+        <Tab.Screen name="Haberler" component={NewsStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

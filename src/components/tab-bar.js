@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {Home, Plus, DollarSign} from './icons';
+import {Home, Plus, Layout} from './icons';
 
 function TabBar({state, descriptors, navigation}) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
@@ -38,7 +38,7 @@ function TabBar({state, descriptors, navigation}) {
           <TouchableOpacity
             onPress={onPress}
             style={styles.TabBarItem}
-            key={label === 'Anasayfa' ? 'Anasayfa' : 'Gelir/Gider Ekle'}>
+            key={label}>
             {label === 'Anasayfa' && (
               <Home
                 stroke={isFocused ? '#404CB3' : '#94AFB6'}
@@ -53,8 +53,8 @@ function TabBar({state, descriptors, navigation}) {
                 height={30}
               />
             )}
-            {label === 'Birikim Takibi' && (
-              <DollarSign
+            {label === 'Haberler' && (
+              <Layout
                 stroke={isFocused ? '#404CB3' : '#94AFB6'}
                 width={30}
                 height={30}

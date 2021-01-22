@@ -8,6 +8,10 @@ target 'PersonalFinanceProject' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'PersonalFinanceProjectTests' do
     inherit! :complete
     # Pods for testing

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const cron = require('node-cron');
 
 var app = express();
 
@@ -43,6 +44,7 @@ var income = require('./routes/income');
 var incomeType = require('./routes/incomeType');
 var expense = require('./routes/expense');
 var expenseType = require('./routes/expenseType');
+var favorite = require('./routes/favorite');
 
 // Using Routes
 app.use('/api', user);
@@ -50,10 +52,15 @@ app.use('/api', income);
 app.use('/api', incomeType);
 app.use('/api', expense);
 app.use('/api', expenseType);
+app.use('/api', favorite);
 
 app.get('/', (req, res) => {
   res.send('Backend çalışıyor.');
 });
+
+// cron.schedule('* * * * * *', function () {
+//   console.log('running a task every 10 second');
+// });
 
 app.listen(process.env.PORT || 8080, function () {
   console.log(

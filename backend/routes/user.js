@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const Expense = require('../models/Expense');
 const Income = require('../models/Income');
+const Favorite = require('../models/Favorite');
 
 router.get('/user', (req, res) => {
   User.find({})

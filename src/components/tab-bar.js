@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {Home, Plus, Layout} from './icons';
+import {Home, Plus, Layout, DollarSign, Star} from './icons';
 
 function TabBar({state, descriptors, navigation}) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
@@ -53,6 +53,20 @@ function TabBar({state, descriptors, navigation}) {
                 height={30}
               />
             )}
+            {label === 'Yatırım' && (
+              <DollarSign
+                stroke={isFocused ? '#404CB3' : '#94AFB6'}
+                width={30}
+                height={30}
+              />
+            )}
+            {label === 'Favoriler' && (
+              <Star
+                stroke={isFocused ? '#404CB3' : '#94AFB6'}
+                width={30}
+                height={30}
+              />
+            )}
             {label === 'Haberler' && (
               <Layout
                 stroke={isFocused ? '#404CB3' : '#94AFB6'}
@@ -81,7 +95,7 @@ const styles = StyleSheet.create({
   TabBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     backgroundColor: '#fff',
     height: 65,
     paddingHorizontal: 15,

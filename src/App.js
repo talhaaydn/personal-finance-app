@@ -9,6 +9,8 @@ import DashboardScreen from './views/Dashboard';
 import IncomeExpenseScreen from './views/IncomeExpense';
 import NewsScreen from './views/News';
 import NewsWebViewScreen from './views/NewsWebView';
+import InvestScreen from './views/Invest';
+import AddFavoriteScreen from './views/AddFavorite';
 
 const NewsStack = createStackNavigator();
 
@@ -21,6 +23,21 @@ function NewsStackScreen() {
   );
 }
 
+const InvestStack = createStackNavigator();
+
+function InvestStackScreen() {
+  return (
+    <InvestStack.Navigator initialRouteName="Haberler">
+      <InvestStack.Screen
+        name="Yatırım"
+        component={InvestScreen}
+        options={{headerShown: false}}
+      />
+      <InvestStack.Screen name="Favori Ekle" component={AddFavoriteScreen} />
+    </InvestStack.Navigator>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -29,6 +46,7 @@ export default function App() {
       <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
         <Tab.Screen name="Anasayfa" component={DashboardScreen} />
         <Tab.Screen name="Gelir/Gider Ekle" component={IncomeExpenseScreen} />
+        <Tab.Screen name="Yatırım" component={InvestStackScreen} />
         <Tab.Screen name="Haberler" component={NewsStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>

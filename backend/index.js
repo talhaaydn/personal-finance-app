@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const cron = require('node-cron');
+const axios = require('axios');
 
 var app = express();
 
@@ -58,9 +59,66 @@ app.get('/', (req, res) => {
   res.send('Backend çalışıyor.');
 });
 
-// cron.schedule('* * * * * *', function () {
-//   console.log('running a task every 10 second');
-// });
+const Favorite = require('./models/Favorite');
+const Notification = require('./models/Notification');
+cron.schedule('*/6 * * * * *', async function () {
+  const USER_ID = '5ff09e7bbe598c1c199cd9aa';
+
+  const favoriteCoins = await Favorite.find({user_id: USER_ID});
+
+  const coinIds = [];
+  favoriteCoins.map((coin) => coinIds.push(coin.coin_id));
+
+  const coins = await axios.get(
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&ids=' +
+      coinIds.join(),
+  );
+
+  favoriteCoins.map((favoriteCoin) => {
+    selectedCoin = coins.data.find((coin) => favoriteCoin.coin_id == coin.id);
+
+    let isAnyChange = false;
+    let message;
+    if (selectedCoin.current_price > favoriteCoin.max_price) {
+      message =
+        selectedCoin.name +
+        ' belirlediğiniz maksimum tutardan daha fazla oldu.';
+      isAnyChange = true;
+    }
+
+    if (selectedCoin.current_price < favoriteCoin.min_price) {
+      message =
+        selectedCoin.name + ' belirlediğiniz minimum tutardan daha az oldu. ';
+      isAnyChange = true;
+    }
+
+    if (isAnyChange) {
+      Notification.find({
+        user_id: '5ff09e7bbe598c1c199cd9aa',
+        coin_id: favoriteCoin.coin_id,
+        created_at: {
+          $gte: new Date().getMinutes() - 10,
+        },
+      }).then((res) => {
+        if (res.length == 0) {
+          const USER_ID = '5ff09e7bbe598c1c199cd9aa';
+
+          const notification = new Notification({
+            user_id: USER_ID,
+            coin_id: favoriteCoin.coin_id,
+            content: message,
+            created_at: Date.now(),
+          });
+
+          notification
+            .save()
+            .then((result) => console.log(result))
+            .catch((error) => console.log(error));
+        }
+      });
+    }
+  });
+});
 
 app.listen(process.env.PORT || 8080, function () {
   console.log(

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
-import {Star} from '../components/icons';
+import {ChevronRight} from '../components/icons';
 
 const Invest = ({navigation}) => {
   const [coins, setCoins] = useState([]);
@@ -34,6 +34,7 @@ const Invest = ({navigation}) => {
           filteredCoins.push(coin);
         }
       });
+      console.log(coinsResult.data);
 
       setCoins(coinsResult.data);
       setFavoriteCoins(filteredCoins);
@@ -107,11 +108,7 @@ const Invest = ({navigation}) => {
               item,
             });
           }}>
-          <Star
-            stroke="#243972"
-            fill={isFavorite == true ? '#243972' : null}
-            width={30}
-            height={30}></Star>
+          <ChevronRight stroke="#243972" width={30} height={30}></ChevronRight>
         </TouchableHighlight>
       </View>
     );

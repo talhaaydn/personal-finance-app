@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Picker} from 'react-native';
+import {Image, View, Text} from 'react-native';
 import styled from 'styled-components/native';
 import axios from 'axios';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const AddFavoriteScreen = ({route, navigation}) => {
   const [minPrice, setMinPrice] = useState();
@@ -38,26 +39,59 @@ const AddFavoriteScreen = ({route, navigation}) => {
         shadowColor: 'red',
         shadowOffset: {height: 0, width: 0},
       }}>
-      <InputGroup>
-        <InputLabel>
-          {item.name} biriminin şuan değeri {item.current_price}$
-        </InputLabel>
-        <InputLabel>
-          Gün içerisindeki maksimum değeri {item.high_24h}$
-        </InputLabel>
-        <InputLabel>Gün içerisindeki minimum değeri {item.low_24h}$</InputLabel>
-      </InputGroup>
-      <InputGroup>
-        <InputLabel>Minimum Fiyat</InputLabel>
-        <Input onChangeText={(text) => setMinPrice(text)} value={minPrice} />
-      </InputGroup>
-      <InputGroup>
-        <InputLabel>Maksimum Fiyat</InputLabel>
-        <Input onChangeText={(text) => setMaxPrice(text)} value={maxPrice} />
-      </InputGroup>
-      <InputButton onPress={saveForm}>
-        <ButtonText>EKLE</ButtonText>
-      </InputButton>
+      <ScrollView>
+        <View style={{alignItems: 'center'}}>
+          <Image style={{width: 120, height: 120}} source={{uri: item.image}} />
+          <InputLabel
+            style={{
+              fontSize: 24,
+              fontWeight: 'bold',
+              marginTop: 5,
+              marginBottom: 20,
+            }}>
+            {item.name}
+          </InputLabel>
+        </View>
+        <InputGroup>
+          <InputLabel>Anlık Değer: {item.current_price}$</InputLabel>
+          <InputLabel>
+            Gün içerisindeki maksimum değer: {item.high_24h}$
+          </InputLabel>
+          <InputLabel>
+            Gün içerisindeki minimum değer: {item.low_24h}$
+          </InputLabel>
+          <View style={{flexDirection: 'row'}}>
+            <InputLabel style={{marginRight: 5}}>
+              Gün değişim yüzdesi:
+            </InputLabel>
+            <InputLabel
+              style={
+                ({
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                },
+                [
+                  item.price_change_percentage_24h < 0
+                    ? {color: '#EB1F39'}
+                    : {color: '#41BE06'},
+                ])
+              }>
+              {item.price_change_percentage_24h}%
+            </InputLabel>
+          </View>
+        </InputGroup>
+        <InputGroup>
+          <InputLabel>Minimum Fiyat</InputLabel>
+          <Input onChangeText={(text) => setMinPrice(text)} value={minPrice} />
+        </InputGroup>
+        <InputGroup>
+          <InputLabel>Maksimum Fiyat</InputLabel>
+          <Input onChangeText={(text) => setMaxPrice(text)} value={maxPrice} />
+        </InputGroup>
+        <InputButton onPress={saveForm}>
+          <ButtonText>EKLE</ButtonText>
+        </InputButton>
+      </ScrollView>
     </FormContainer>
   );
 };
@@ -78,8 +112,8 @@ const InputGroup = styled.View`
 `;
 const InputLabel = styled.Text`
   font-family: 'Nunito-Bold';
-  font-size: 14px;
-  color: #94afb6;
+  font-size: 16px;
+  color: #1c1e21;
 `;
 const Input = styled.TextInput`
   height: 40px;

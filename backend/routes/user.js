@@ -4,13 +4,23 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const Expense = require('../models/Expense');
 const Income = require('../models/Income');
-const Favorite = require('../models/Favorite');
+const Notification = require('../models/Notification');
 
 router.get('/user', (req, res) => {
   User.find({})
     .then((result) => res.json(result))
     .catch((error) => res.status(500).send(error));
 });
+
+// router.get('/user/notification', (req, res) => {
+//   const notifications = Notification.find({
+//     created_at: {
+//       $gte: new Date().getMinutes() - 30,
+//     },
+//   })
+//     .then((result) => console.log(result))
+//     .catch((error) => res.status(500).send(error));
+// });
 
 router.get('/user/expense-income', async (req, res) => {
   const USER_ID = '5ff09e7bbe598c1c199cd9aa';

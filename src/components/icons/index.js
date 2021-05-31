@@ -1,5 +1,6 @@
 export { default as ArrowDown } from './ArrowDown'
 export { default as ArrowUp } from './ArrowUp'
+export { default as ChevronRight } from './ChevronRight'
 export { default as DollarSign } from './DollarSign'
 export { default as Home } from './Home'
 export { default as Layout } from './Layout'
